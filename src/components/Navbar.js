@@ -23,7 +23,7 @@ class Navbar extends PureComponent {
               </figure>
             </Link>
             <div
-              class={`navbar-burger burger ${this.getStatus()}`}
+              className={`navbar-burger burger ${this.getStatus()}`}
               data-target="navMenuDocumentation"
               onClick={() =>
                 this.setState(prevState => ({ isActive: !prevState.isActive }))
@@ -35,7 +35,7 @@ class Navbar extends PureComponent {
             </div>
           </div>
 
-          <div class={`navbar-menu ${this.getStatus()}`}>
+          <div className={`navbar-menu ${this.getStatus()}`}>
             <div className="navbar-start" />
             <div className="navbar-end">
               <Link className="navbar-item" to="/about">
