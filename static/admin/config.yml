@@ -6,6 +6,17 @@ media_folder: static/img
 public_folder: /img
 
 collections:
+  - label: "Project"
+    name: "project"
+    folder: "src/pages/projects"
+    create: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "thumbnail", widget: "image"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: Blurbs, name: blurbs, widget: list, fields: [{label: Image, name: image, widget: image}, {label: Text, name: text, widget: text}]}
+
   - name: "blog"
     label: "Blog"
     folder: "src/pages/blog"
