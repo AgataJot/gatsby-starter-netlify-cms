@@ -12,11 +12,10 @@ export default class IndexPage extends React.Component {
     const { data } = this.props;
     const { edges: posts } = data.allMarkdownRemark;
     const images = posts.map(({ node: post }) => (
-      <div
-        key={post.frontmatter.image}
-        className="column is-one-third"
-      >
-        <img src={post.frontmatter.image} />
+      <div key={post.frontmatter.image} className="column is-one-third">
+        <Link className="has-text-white" to={post.fields.slug}>
+          <img src={post.frontmatter.image} />
+        </Link>
       </div>
     ));
 
