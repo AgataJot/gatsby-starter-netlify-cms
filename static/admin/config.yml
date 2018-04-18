@@ -11,13 +11,12 @@ collections:
     folder: "src/pages/projects"
     create: true
     fields:
-      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post"}
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "project"}
       - {label: "Tytul", name: "title", widget: "string"}
       - {label: "Opis", name: "body", widget: "markdown"}
       - {label: "Data dodania", name: "date", widget: "datetime"}
       - {label: "Stykowka", name: "thumbnail", widget: "image"}
       - {label: "Obraz", name: "image", widget: "image"}
-      - {label: "Nazwa obrazu", name: "image_name", widget: "string"}
 
   - name: "blog"
     label: "Blog"
