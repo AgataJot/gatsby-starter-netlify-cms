@@ -8,24 +8,40 @@ const masonryOptions = {
 const imagesLoadedOptions = { background: ".my-bg-image-el" };
 
 export default class IndexPage extends React.Component {
+  componentDidMount() {
+    this.masonry.on("layoutComplete", this.handleLayoutComplete);
+  }
+
+  componentWillUnmount() {
+    this.masonry.off("layoutComplete", this.handleLayoutComplete);
+  }
+
+  handleLayoutComplete = () => {
+    console.log("complete");
+  };
+
   render() {
     const { data } = this.props;
     const { edges: posts } = data.allMarkdownRemark;
     const images = posts.map(({ node: post }) => (
-      <div key={post.frontmatter.image} className="column is-one-third">
-        <Link className="has-text-white" to={post.fields.slug}>
+      <li key={post.frontmatter.image} className="column is-one-third">
+        <Link
+          className="has-text-white"
+          to={post.fields.slug}
+          style={{ display: "block" }}
+        >
           <img src={post.frontmatter.image} />
         </Link>
-      </div>
+      </li>
     ));
 
     return (
       <section className="section">
         <div className="container">
-          <div className="content">
-            <h1 className="has-text-weight-bold is-size-2">Latest Stories</h1>
-          </div>
           <Masonry
+            ref={c => {
+              this.masonry = this.masonry || c.masonry;
+            }}
             className={"columns"}
             elementType={"ul"}
             options={masonryOptions}
@@ -39,7 +55,10 @@ export default class IndexPage extends React.Component {
           {posts.map(({ node: post }) => (
             <div
               className="content"
-              style={{ border: "1px solid #eaecee", padding: "2em 4em" }}
+              style={{
+                border: "1px solid #eaecee",
+                padding: "2em 4em"
+              }}
               key={post.id}
             >
               <p>
