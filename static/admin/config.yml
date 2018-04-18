@@ -13,10 +13,11 @@ collections:
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "project"}
       - {label: "Tytul", name: "title", widget: "string"}
-      - {label: "Opis", name: "body", widget: "text", optional: true}
+      - {label: "Opis", name: "description", widget: "text"}
       - {label: "Data dodania", name: "date", widget: "datetime"}
-      - {label: "Stykowka", name: "thumbnail", widget: "image"}
-      - {label: "Obraz", name: "image", widget: "image"}
+      - {label: "Stykowka", name: "image", widget: "image"}
+      - {label: "Obraz", name: "full_image", widget: "image"}
+
 
   - name: "blog"
     label: "Blog"
