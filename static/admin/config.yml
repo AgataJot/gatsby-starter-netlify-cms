@@ -17,6 +17,7 @@ collections:
       - {label: "Data dodania", name: "date", widget: "datetime"}
       - {label: "Stykowka", name: "image", widget: "image"}
       - {label: "Obraz", name: "full_image", widget: "image"}
+      - {label: "Priorytet", name: "priority", widget: "number", default: 1}
 
 
   - name: "blog"
