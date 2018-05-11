@@ -15,18 +15,17 @@ export const ProjectPageTemplate = ({
     <section className="section">
       {helmet || ""}
       <div className="container content">
-        <div
-          className="full-width-image-container"
-          style={{ backgroundImage: `url(${fullImage})` }}
-        />
-        <div className="columns">
+        <div className="wk-image-container">
+          <img src={fullImage} />
+        </div>
+        {/* <div className="columns">
           <div className="column is-10 is-offset-1">
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
             <p>{description}</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
