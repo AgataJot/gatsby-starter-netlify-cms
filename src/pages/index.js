@@ -7,21 +7,33 @@ const masonryOptions = {
 };
 const imagesLoadedOptions = { background: ".my-bg-image-el" };
 
-export default class IndexPage extends React.Component {
-  componentDidMount() {
-    this.masonry.on("layoutComplete", this.handleLayoutComplete);
-  }
+function Grid(props) {
+  return (
+    <Masonry
+      className={"columns"}
+      elementType={"ul"}
+      options={masonryOptions}
+      disableImagesLoaded={false}
+      updateOnEachImageLoad={false}
+      onImagesLoaded={props.handleImagesLoaded}
+      imagesLoadedOptions={imagesLoadedOptions}
+    >
+      {props.images}
+    </Masonry>
+  );
+}
 
-  componentWillUnmount() {
-    this.masonry.off("layoutComplete", this.handleLayoutComplete);
-  }
+export default class IndexPage extends React.PureComponent {
+  state = { layoutComplete: false };
 
-  handleLayoutComplete = () => {
+  handleImagesLoaded = () => {
     console.log("complete");
+    this.setState({ layoutComplete: true });
   };
 
   render() {
     const { data } = this.props;
+    const { layoutComplete } = this.state;
     const { edges: posts } = data.allMarkdownRemark;
     const images = posts.map(({ node: post }) => (
       <li
@@ -38,22 +50,16 @@ export default class IndexPage extends React.Component {
       </li>
     ));
 
+    const gridClassName = [
+      "container",
+      "wk-grid-container",
+      layoutComplete ? "wk-show-grid" : null
+    ];
+
     return (
       <section className="section">
-        <div className="container">
-          <Masonry
-            ref={c => {
-              this.masonry = this.masonry || c.masonry;
-            }}
-            className={"columns"}
-            elementType={"ul"}
-            options={masonryOptions}
-            disableImagesLoaded={false}
-            updateOnEachImageLoad={false}
-            imagesLoadedOptions={imagesLoadedOptions}
-          >
-            {images}
-          </Masonry>
+        <div className={gridClassName.join(" ")}>
+          <Grid images={images} handleImagesLoaded={this.handleImagesLoaded} />
         </div>
       </section>
     );
