@@ -59,6 +59,7 @@ export default class IndexPage extends React.PureComponent {
     return (
       <section className="section">
         <div className={gridClassName.join(" ")}>
+          {!layoutComplete && <div className="wk-preloader" />}
           <Grid images={images} handleImagesLoaded={this.handleImagesLoaded} />
         </div>
       </section>
