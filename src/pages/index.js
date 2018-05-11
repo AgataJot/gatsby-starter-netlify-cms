@@ -24,7 +24,10 @@ export default class IndexPage extends React.Component {
     const { data } = this.props;
     const { edges: posts } = data.allMarkdownRemark;
     const images = posts.map(({ node: post }) => (
-      <li key={post.frontmatter.image} className="column is-one-third">
+      <li
+        key={post.frontmatter.image}
+        className="column is-one-quarter wk-grid-image"
+      >
         <Link
           className="has-text-white"
           to={post.fields.slug}

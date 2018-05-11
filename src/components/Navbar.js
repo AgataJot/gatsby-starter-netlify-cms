@@ -14,12 +14,27 @@ class Navbar extends PureComponent {
   };
   render() {
     return (
-      <nav className="navbar is-transparent">
+      <nav className="wk-nav">
+        <div className="container">
+          <Link to="/" className="wk-logo">
+            <h1 className="is-size-1 has-text-light">Vilkometria</h1>
+            <h2 className="is-size-4 has-text-grey-light">
+              Handmade in Poland
+            </h2>
+          </Link>
+        </div>
+      </nav>
+    );
+    return (
+      <nav className="navbar is-dark" style={{ backgroundColor: "inherit" }}>
         <div className="container">
           <div className="navbar-brand">
             <Link to="/" className="navbar-item">
               <figure className="image">
-                <h1 className="has-text-weight-bold is-size-1">W</h1>
+                <h1 className="is-size-1 has-text-light">Vilkometria</h1>
+                <h2 className="is-size-4 has-text-grey-light">
+                  Handmade in Poland
+                </h2>
               </figure>
             </Link>
             <div
