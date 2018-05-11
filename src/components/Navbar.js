@@ -16,7 +16,8 @@ class Navbar extends PureComponent {
     return (
       <nav className="wk-nav">
         <div className="container">
-          <Link to="/" className="wk-logo">
+          <Link to="/" className="wk-header">
+            <div className="wk-logo-img" />
             <h1 className="is-size-1 has-text-light">Vilkometria</h1>
             <h2 className="is-size-4 has-text-grey-light">
               Handmade in Poland
