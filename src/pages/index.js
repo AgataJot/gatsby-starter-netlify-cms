@@ -5,7 +5,7 @@ import Masonry from "react-masonry-component";
 const masonryOptions = {
   transitionDuration: 0
 };
-const imagesLoadedOptions = { background: ".my-bg-image-el" };
+const imagesLoadedOptions = { background: ".wk-bg-image-el" };
 
 function Grid(props) {
   return (
@@ -14,7 +14,7 @@ function Grid(props) {
       elementType={"ul"}
       options={masonryOptions}
       disableImagesLoaded={false}
-      updateOnEachImageLoad={false}
+      updateOnEachImageLoad={true}
       onImagesLoaded={props.handleImagesLoaded}
       imagesLoadedOptions={imagesLoadedOptions}
     >
@@ -26,9 +26,9 @@ function Grid(props) {
 export default class IndexPage extends React.PureComponent {
   state = { layoutComplete: false };
 
-  handleImagesLoaded = () => {
-    console.log("complete");
-    this.setState({ layoutComplete: true });
+  handleImagesLoaded = what => {
+    console.log("complete", what);
+    // this.setState({ layoutComplete: true });
   };
 
   getImgSrc = src => {
@@ -40,8 +40,8 @@ export default class IndexPage extends React.PureComponent {
     }
 
     const imageWidth = 318;
-    const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/w_${imageWidth},f_auto/`;
-    const originalURL = `${window.location.origin}/${src}`;
+    const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/w_${imageWidth},f_auto,q_auto,fl_progressive/`;
+    const originalURL = `${window.location.origin}${src}`;
     const url = `${cloudinary}${originalURL}`;
     console.log("url", url);
     return url;
@@ -57,25 +57,20 @@ export default class IndexPage extends React.PureComponent {
         className="column is-one-quarter wk-grid-image"
       >
         <Link
-          className="has-text-white"
+          className="has-text-white wk-grid-image-link"
           to={post.fields.slug}
-          style={{ display: "block" }}
         >
           <img src={this.getImgSrc(post.frontmatter.image)} />
         </Link>
       </li>
     ));
 
-    const gridClassName = [
-      "container",
-      "wk-grid-container",
-      layoutComplete ? "wk-show-grid" : null
-    ];
+    const gridClassName = ["container", "wk-grid-container", "wk-show-grid"];
+    //layoutComplete ? "wk-show-grid" : null
 
     return (
       <section className="section">
         <div className={gridClassName.join(" ")}>
-          {!layoutComplete && <div className="wk-preloader" />}
           <Grid images={images} handleImagesLoaded={this.handleImagesLoaded} />
         </div>
       </section>

@@ -59,6 +59,15 @@ h1, h2
   &:hover
     filter: grayscale(0)
     transition: filter 0.6s ease-out
+.wk-grid-image-link
+  display: block
+  background-color: $wk-bg-color
+  background-position: center center
+  background-repeat: no-repeat
+  background-image: url('/preloader.gif')
+  background-size: 60px 60px;
+  min-height: 100px
+
 
 .wk-header
   text-align: center
@@ -91,13 +100,6 @@ h1, h2
   background-repeat: no-repeat
   background-position-x: center
 
-.wk-preloader
-  display: block;
-  width: 60px;
-  height: 60px;
-  margin: 0 auto;
-  background-image: url('/preloader.gif')
-  background-size: cover
 .wk-grid-container
   img
     opacity: 0
