@@ -32,13 +32,11 @@ export default class IndexPage extends React.PureComponent {
   };
 
   getImgSrc = src => {
-    const { data } = this.props;
-    const { host, port } = data.site;
-    if (host === "localhost") return src;
+    if (window.location.host.includes("localhost")) return src;
 
     const imageWidth = 318;
     const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/w_${imageWidth},f_auto/`;
-    const originalURL = `https://${host}:${port}/${src}`;
+    const originalURL = `https://${window.location.origin}/${src}`;
     return `${cloudinary}${originalURL}`;
   };
 
@@ -88,10 +86,6 @@ IndexPage.propTypes = {
 
 export const pageQuery = graphql`
   query IndexQuery {
-    site {
-      host
-      port
-    }
     allMarkdownRemark(
       filter: { frontmatter: { templateKey: { eq: "project" } } }
       sort: {
