@@ -10,7 +10,8 @@ const masonryOptions = {
 };
 const mobileW = 768;
 // TODO doesn't update
-const isMobile = document && document.body.clientWidth <= mobileW;
+const isMobile =
+  typeof document !== "undefined" && document.body.clientWidth <= mobileW;
 
 function Grid({ images, handleImagesLoaded }) {
   if (isMobile) return <ul className="columns">{images}</ul>;
