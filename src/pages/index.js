@@ -31,20 +31,21 @@ export default class IndexPage extends React.PureComponent {
     // this.setState({ layoutComplete: true });
   };
 
-  getImgSrc = src => {
+  getImg = src => {
     if (
       typeof window === "undefined" ||
       window.location.host.includes("localhost")
     ) {
-      return src;
+      return { src };
     }
-
+    const dpr = window.devicePixelRatio;
     const imageWidth = 318;
-    const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/w_${imageWidth},f_auto,q_auto,fl_progressive/`;
+    const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/w_${imageWith *
+      dpr},f_auto,q_auto,fl_progressive/`;
     const originalURL = `${window.location.origin}${src}`;
     const url = `${cloudinary}${originalURL}`;
     console.log("url", url);
-    return url;
+    return { src: url };
   };
 
   render() {
@@ -60,7 +61,7 @@ export default class IndexPage extends React.PureComponent {
           className="has-text-white wk-grid-image-link"
           to={post.fields.slug}
         >
-          <img src={this.getImgSrc(post.frontmatter.image)} />
+          <img {...this.getImg(post.frontmatter.image)} />
         </Link>
       </li>
     ));
