@@ -40,8 +40,14 @@ export default class IndexPage extends React.PureComponent {
     }
     const dpr = window.devicePixelRatio;
     const imageWidth = 318;
-    const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/w_${imageWith *
-      dpr},f_auto,q_auto,fl_progressive/`;
+    const pixelWidth = imageWith * dpr;
+    const options = [
+      `w_${pixelWidth}`,
+      "f_auto",
+      "q_auto",
+      "fl_progressive"
+    ].join(",");
+    const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/${options}/`;
     const originalURL = `${window.location.origin}${src}`;
     const url = `${cloudinary}${originalURL}`;
     console.log("url", url);
