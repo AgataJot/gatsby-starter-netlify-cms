@@ -35,13 +35,16 @@ export default class IndexPage extends React.PureComponent {
     if (
       typeof window === "undefined" ||
       window.location.host.includes("localhost")
-    )
+    ) {
       return src;
+    }
 
     const imageWidth = 318;
     const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/w_${imageWidth},f_auto/`;
-    const originalURL = `https://${window.location.origin}/${src}`;
-    return `${cloudinary}${originalURL}`;
+    const originalURL = `${window.location.origin}/${src}`;
+    const url = `${cloudinary}${originalURL}`;
+    console.log("url", url);
+    return url;
   };
 
   render() {
