@@ -2,12 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "gatsby-link";
 import Masonry from "react-masonry-component";
+import { get } from "lodash";
+import classNames from "classnames";
+
 const masonryOptions = {
   transitionDuration: 0
 };
-const imagesLoadedOptions = { background: ".wk-bg-image-el" };
+const mobileW = 768;
+// TODO doesn't update
+const isMobile = document && document.body.clientWidth <= mobileW;
 
-function Grid(props) {
+function Grid({ images, handleImagesLoaded }) {
+  if (isMobile) return <ul className="columns">{images}</ul>;
   return (
     <Masonry
       className={"columns"}
@@ -15,20 +21,23 @@ function Grid(props) {
       options={masonryOptions}
       disableImagesLoaded={false}
       updateOnEachImageLoad={true}
-      onImagesLoaded={props.handleImagesLoaded}
-      imagesLoadedOptions={imagesLoadedOptions}
+      onImagesLoaded={handleImagesLoaded}
+      imagesLoadedOptions={{}}
     >
-      {props.images}
+      {images}
     </Masonry>
   );
 }
 
 export default class IndexPage extends React.PureComponent {
-  state = { layoutComplete: false };
+  state = { layoutComplete: false, loadedImages: [false] };
 
   handleImagesLoaded = what => {
+    if (this.state.loadedImages.every(isLoaded => isLoaded)) return;
+    const loadedImages = what.images.map(({ isLoaded }) => isLoaded);
+    console.log("loaded", loadedImages);
     console.log("complete", what);
-    // this.setState({ layoutComplete: true });
+    this.setState({ loadedImages });
   };
 
   getImg = src => {
@@ -52,17 +61,24 @@ export default class IndexPage extends React.PureComponent {
     return { src: url };
   };
 
+  hasLoaded = index => {
+    const { loadedImages } = this.state;
+    return loadedImages[index];
+  };
+
   render() {
     const { data } = this.props;
     const { layoutComplete } = this.state;
     const { edges: posts } = data.allMarkdownRemark;
-    const images = posts.map(({ node: post }) => (
+    const images = posts.map(({ node: post }, index) => (
       <li
         key={post.frontmatter.image}
         className="column is-one-quarter wk-grid-image"
       >
         <Link
-          className="has-text-white wk-grid-image-link"
+          className={classNames("has-text-white", {
+            "wk-grid-image-link": !this.hasLoaded(index)
+          })}
           to={post.fields.slug}
         >
           <img {...this.getImg(post.frontmatter.image)} />
@@ -70,12 +86,9 @@ export default class IndexPage extends React.PureComponent {
       </li>
     ));
 
-    const gridClassName = ["container", "wk-grid-container", "wk-show-grid"];
-    //layoutComplete ? "wk-show-grid" : null
-
     return (
       <section className="section">
-        <div className={gridClassName.join(" ")}>
+        <div className="container wk-grid-container">
           <Grid images={images} handleImagesLoaded={this.handleImagesLoaded} />
         </div>
       </section>
