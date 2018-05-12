@@ -4,7 +4,7 @@ import Link from "gatsby-link";
 import Masonry from "react-masonry-component";
 import { get } from "lodash";
 import classNames from "classnames";
-
+import { getImg } from "../utils/cloudinary";
 const masonryOptions = {
   transitionDuration: 0
 };
@@ -41,27 +41,6 @@ export default class IndexPage extends React.PureComponent {
     this.setState({ loadedImages });
   };
 
-  getImg = src => {
-    if (typeof window === "undefined") return { src };
-    const isLocal = window.location.host.includes("localhost");
-    const location = !isLocal
-      ? window.location.origin
-      : "https://relaxed-swirles-8933b8.netlify.com/";
-    const dpr = window.devicePixelRatio;
-    const imageWidth = 318;
-    const pixelWidth = imageWidth * dpr;
-    const options = [
-      `w_${pixelWidth}`,
-      "f_auto",
-      "q_auto",
-      "fl_progressive"
-    ].join(",");
-    const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/${options}/`;
-    const url = `${cloudinary}${location}${src}`;
-    console.log("url", url);
-    return { src: url };
-  };
-
   hasLoaded = index => {
     const { loadedImages } = this.state;
     return loadedImages[index];
@@ -82,7 +61,7 @@ export default class IndexPage extends React.PureComponent {
           })}
           to={post.fields.slug}
         >
-          <img {...this.getImg(post.frontmatter.image)} />
+          <img {...getImg(post.frontmatter.image, { width: 318 })} />
         </Link>
       </li>
     ));
