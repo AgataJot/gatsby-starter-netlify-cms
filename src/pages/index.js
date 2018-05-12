@@ -32,15 +32,15 @@ export default class IndexPage extends React.PureComponent {
   };
 
   getImg = src => {
-    if (
+    const isLocal =
       typeof window === "undefined" ||
-      window.location.host.includes("localhost")
-    ) {
-      return { src };
-    }
+      window.location.host.includes("localhost");
+    const location = !isLocal
+      ? window.location.origin
+      : "https://relaxed-swirles-8933b8.netlify.com/";
     const dpr = window.devicePixelRatio;
     const imageWidth = 318;
-    const pixelWidth = imageWith * dpr;
+    const pixelWidth = imageWidth * dpr;
     const options = [
       `w_${pixelWidth}`,
       "f_auto",
@@ -48,8 +48,7 @@ export default class IndexPage extends React.PureComponent {
       "fl_progressive"
     ].join(",");
     const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/${options}/`;
-    const originalURL = `${window.location.origin}${src}`;
-    const url = `${cloudinary}${originalURL}`;
+    const url = `${cloudinary}${location}${src}`;
     console.log("url", url);
     return { src: url };
   };
