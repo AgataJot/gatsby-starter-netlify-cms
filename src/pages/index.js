@@ -10,8 +10,9 @@ const masonryOptions = {
 };
 const mobileW = 768;
 // TODO doesn't update
-const isMobile =
-  typeof document !== "undefined" && document.body.clientWidth <= mobileW;
+const getDocumentW =
+  typeof document !== "undefined" && document.body.clientWidth;
+const isMobile = typeof document !== "undefined" && getDocumentW <= mobileW;
 
 function Grid({ images, handleImagesLoaded }) {
   if (isMobile) return <ul className="columns">{images}</ul>;
@@ -61,7 +62,11 @@ export default class IndexPage extends React.PureComponent {
           })}
           to={post.fields.slug}
         >
-          <img {...getImg(post.frontmatter.image, { width: 318 })} />
+          <img
+            {...getImg(post.frontmatter.image, {
+              width: isMobile ? getDocumentW : 318
+            })}
+          />
         </Link>
       </li>
     ));
