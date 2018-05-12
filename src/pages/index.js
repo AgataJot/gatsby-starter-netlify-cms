@@ -32,7 +32,11 @@ export default class IndexPage extends React.PureComponent {
   };
 
   getImgSrc = src => {
-    if (!window || window.location.host.includes("localhost")) return src;
+    if (
+      typeof window === "undefined" ||
+      window.location.host.includes("localhost")
+    )
+      return src;
 
     const imageWidth = 318;
     const cloudinary = `https://res.cloudinary.com/dixjmm2zt/image/fetch/w_${imageWidth},f_auto/`;
