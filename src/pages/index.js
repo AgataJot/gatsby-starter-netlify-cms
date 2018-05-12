@@ -32,9 +32,8 @@ export default class IndexPage extends React.PureComponent {
   };
 
   getImg = src => {
-    const isLocal =
-      typeof window === "undefined" ||
-      window.location.host.includes("localhost");
+    if (typeof window === "undefined") return { src };
+    const isLocal = window.location.host.includes("localhost");
     const location = !isLocal
       ? window.location.origin
       : "https://relaxed-swirles-8933b8.netlify.com/";
