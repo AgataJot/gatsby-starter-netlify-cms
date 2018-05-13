@@ -62,11 +62,11 @@ export default class IndexPage extends React.PureComponent {
           })}
           to={post.fields.slug}
         >
-          {/* <img
+          <img
             {...getImg(post.frontmatter.image, {
               width: isMobile ? getDocumentW : 318
             })}
-          /> */}
+          />
         </Link>
       </li>
     ));
