@@ -67,7 +67,7 @@ export default class IndexPage extends React.PureComponent {
             })}
             to={post.fields.slug}
           >
-            {img.src}
+            <img src={img.src} />
           </Link>
         </li>
       );
