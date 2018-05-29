@@ -57,8 +57,8 @@ export default class IndexPage extends React.PureComponent {
         className="column is-one-quarter wk-grid-image"
       >
         <Link
-          className={classNames("has-text-white", {
-            "wk-grid-image-link": !this.hasLoaded(index)
+          className={classNames("has-text-white", "wk-grid-image-link", {
+            "wk-grid-image-link-loading": !this.hasLoaded(index)
           })}
           to={post.fields.slug}
         >
