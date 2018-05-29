@@ -37,8 +37,6 @@ export default class IndexPage extends React.PureComponent {
   handleImagesLoaded = what => {
     if (this.state.loadedImages.every(isLoaded => isLoaded)) return;
     const loadedImages = what.images.map(({ isLoaded }) => isLoaded);
-    console.log("loaded", loadedImages);
-    console.log("complete", what);
     const allLoaded = loadedImages.every(isLoaded => isLoaded);
     this.setState({ loadedImages, allLoaded });
   };
@@ -51,14 +49,11 @@ export default class IndexPage extends React.PureComponent {
   render() {
     const { data } = this.props;
     const { edges: posts } = data.allMarkdownRemark;
-    console.log("render posts", posts);
-    console.log("loadedImages", this.state);
 
     const images = posts.map(({ node: post }, index) => {
       const img = getImg(post.frontmatter.image, {
         width: isMobile ? getDocumentW : 318
       });
-      console.log("get img,", img);
       if (!img) return null;
       return (
         <li

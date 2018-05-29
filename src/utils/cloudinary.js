@@ -7,7 +7,6 @@ export const getImg = (
   withDpr = true,
   ...otherOptions
 ) => {
-  console.group("src");
   if (typeof window === "undefined") return null;
   const isLocal = window.location.host.includes("localhost");
   const location = !isLocal ? window.location.origin : STAGING;
@@ -24,7 +23,5 @@ export const getImg = (
 
   const cloudinary = `${CLOUDINARY_URL}${options}/`;
   const url = `${cloudinary}${location}${src}`;
-  console.log("url", url);
-  console.groupEnd("src");
   return { src: url };
 };
