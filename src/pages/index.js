@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "gatsby-link";
 import Masonry from "react-masonry-component";
-import { get } from "lodash";
+import { get, compact } from "lodash";
 import classNames from "classnames";
 import { getImg } from "../utils/cloudinary";
 const masonryOptions = {
@@ -32,14 +32,15 @@ function Grid({ images, handleImagesLoaded }) {
 }
 
 export default class IndexPage extends React.PureComponent {
-  state = { loadedImages: [false] };
+  state = { loadedImages: [false], allLoaded: false };
 
   handleImagesLoaded = what => {
     if (this.state.loadedImages.every(isLoaded => isLoaded)) return;
     const loadedImages = what.images.map(({ isLoaded }) => isLoaded);
     console.log("loaded", loadedImages);
     console.log("complete", what);
-    this.setState({ loadedImages });
+    const allLoaded = loadedImages.every(isLoaded => isLoaded);
+    this.setState({ loadedImages, allLoaded });
   };
 
   hasLoaded = index => {
@@ -58,6 +59,7 @@ export default class IndexPage extends React.PureComponent {
         width: isMobile ? getDocumentW : 318
       });
       console.log("get img,", img);
+      if (!img) return null;
       return (
         <li
           key={post.frontmatter.image}
@@ -78,7 +80,10 @@ export default class IndexPage extends React.PureComponent {
     return (
       <section className="section">
         <div className="container wk-grid-container">
-          <Grid images={images} handleImagesLoaded={this.handleImagesLoaded} />
+          <Grid
+            images={compact(images)}
+            handleImagesLoaded={this.handleImagesLoaded}
+          />
         </div>
       </section>
     );

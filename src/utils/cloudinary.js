@@ -8,7 +8,7 @@ export const getImg = (
   ...otherOptions
 ) => {
   console.group("src");
-  if (typeof window === "undefined") return { src: null };
+  if (typeof window === "undefined") return null;
   const isLocal = window.location.host.includes("localhost");
   const location = !isLocal ? window.location.origin : STAGING;
 
