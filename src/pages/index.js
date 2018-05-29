@@ -51,6 +51,8 @@ export default class IndexPage extends React.PureComponent {
     const { data } = this.props;
     const { edges: posts } = data.allMarkdownRemark;
     console.log("render posts", posts);
+    console.log("loadedImages", loadedImages);
+
     const images = posts.map(({ node: post }, index) => {
       const img = getImg(post.frontmatter.image, {
         width: isMobile ? getDocumentW : 318
