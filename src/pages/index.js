@@ -51,25 +51,27 @@ export default class IndexPage extends React.PureComponent {
     const { data } = this.props;
     const { layoutComplete } = this.state;
     const { edges: posts } = data.allMarkdownRemark;
-    const images = posts.map(({ node: post }, index) => (
-      <li
-        key={post.frontmatter.image}
-        className="column is-one-quarter wk-grid-image"
-      >
-        <Link
-          className={classNames("has-text-white", "wk-grid-image-link", {
-            "wk-grid-image-link-loading": !this.hasLoaded(index)
-          })}
-          to={post.fields.slug}
+    const images = posts.map(({ node: post }, index) => {
+      const img = getImg(post.frontmatter.image, {
+        width: isMobile ? getDocumentW : 318
+      });
+      console.log("get img,", img);
+      return (
+        <li
+          key={post.frontmatter.image}
+          className="column is-one-quarter wk-grid-image"
         >
-          <img
-            {...getImg(post.frontmatter.image, {
-              width: isMobile ? getDocumentW : 318
+          <Link
+            className={classNames("has-text-white", "wk-grid-image-link", {
+              "wk-grid-image-link-loading": !this.hasLoaded(index)
             })}
-          />
-        </Link>
-      </li>
-    ));
+            to={post.fields.slug}
+          >
+            <img src={img.src} />
+          </Link>
+        </li>
+      );
+    });
 
     return (
       <section className="section">
