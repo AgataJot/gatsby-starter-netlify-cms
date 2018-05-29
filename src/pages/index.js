@@ -32,7 +32,7 @@ function Grid({ images, handleImagesLoaded }) {
 }
 
 export default class IndexPage extends React.PureComponent {
-  state = { layoutComplete: false, loadedImages: [false] };
+  state = { loadedImages: [false] };
 
   handleImagesLoaded = what => {
     if (this.state.loadedImages.every(isLoaded => isLoaded)) return;
@@ -49,8 +49,8 @@ export default class IndexPage extends React.PureComponent {
 
   render() {
     const { data } = this.props;
-    const { layoutComplete } = this.state;
     const { edges: posts } = data.allMarkdownRemark;
+    console.log("render posts", posts);
     const images = posts.map(({ node: post }, index) => {
       const img = getImg(post.frontmatter.image, {
         width: isMobile ? getDocumentW : 318
